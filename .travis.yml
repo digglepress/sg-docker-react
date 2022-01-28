@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run devhub/react_img yarn run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-2 # REGION NAME
+  app: docker # APP NAME
+  env: Docker-env # ENV NAME
+  bucket_name: # BUCKET NAME
+  bucket_path: # BUCKET PATH -> $(APP_NAME)
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY # -> TravisCI env variable
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY" # -> TravisCI env variable
